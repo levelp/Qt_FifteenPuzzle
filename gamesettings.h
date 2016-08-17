@@ -21,6 +21,8 @@ class GameSettings : public QDialog {
 
   void on_fontComboBox_currentFontChanged(const QFont& f);
 
+  void on_chooseColorButton_clicked();
+
  private:
   Ui::GameSettings* ui;
 };
