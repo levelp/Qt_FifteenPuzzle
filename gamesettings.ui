@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
+    <width>479</width>
     <height>295</height>
    </rect>
   </property>
@@ -53,7 +53,7 @@
       <number>100</number>
      </property>
      <property name="value">
-      <number>50</number>
+      <number>100</number>
      </property>
     </widget>
    </item>
@@ -72,7 +72,13 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QFontComboBox" name="fontComboBox"/>
+    <widget class="QFontComboBox" name="fontComboBox">
+     <property name="currentFont">
+      <font>
+       <family>Trebuchet MS</family>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_4">
@@ -88,18 +94,29 @@
     <widget class="QPushButton" name="sampleButton">
      <property name="minimumSize">
       <size>
-       <width>50</width>
-       <height>50</height>
+       <width>100</width>
+       <height>100</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>50</width>
-       <height>50</height>
+       <width>100</width>
+       <height>100</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Trebuchet MS</family>
+       <pointsize>36</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="text">
       <string>15</string>
+     </property>
+     <property name="autoDefault">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

@@ -35,6 +35,11 @@
       <height>50</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>15</string>
     </property>
