@@ -22,14 +22,14 @@ void GameSettings::on_buttonSizeEdit_valueChanged(int size) {
   ui->sampleButton->setMinimumHeight(buttonSize);
   // Изменяем размер шрифта при изменении размера кнопки
   QFont b_font = ui->sampleButton->font();
-  b_font.setPointSize(10+30*(buttonSize-30)/70);
+  b_font.setPointSize(10 + 30 * (buttonSize - 30) / 70);
   ui->sampleButton->setFont(b_font);
 }
 
 void GameSettings::on_fontComboBox_currentFontChanged(const QFont& f) {
- //Изменение размера при изменении надвания шрифта
-  QFont b_font =f;
-  b_font.setPointSize(10+30*(ui->buttonSizeEdit->value()-30)/70);
+  //Изменение размера при изменении надвания шрифта
+  QFont b_font = f;
+  b_font.setPointSize(10 + 30 * (ui->buttonSizeEdit->value() - 30) / 70);
   ui->sampleButton->setFont(b_font);
 }
 

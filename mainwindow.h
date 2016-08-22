@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+// Подключаем модуль с "состоянием игры"
+#include "game.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +21,10 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow* ui;
+
+  // Состояние игры (игрового поля,
+  // выйгрыш/проигрыш и т.д.)
+  Game game;
 };
 
 #endif // MAINWINDOW_H
