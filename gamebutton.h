@@ -11,7 +11,7 @@ class GameButton : public QPushButton,
 
  public:
   GameButton(QWidget* parent,
-             int row, int col,
+             int row, int col, int value,
              QPushButton* prototype,
              Game& game);
 

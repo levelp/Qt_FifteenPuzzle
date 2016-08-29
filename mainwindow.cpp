@@ -12,12 +12,17 @@ MainWindow::MainWindow(QWidget* parent) :
   // Скрываем кнопку прототип
   ui->prototypeButton->setVisible(false);
 
+  // Поле для игры
+  int field[game.SIZE][game.SIZE];
+  // Заполняем поле для игры
+  game.newGame(field);
+
   // Создаём кнопки соответствующие клеткам поля
   for(int i = 0; i < game.SIZE; ++i)
     for(int j = 0; j < game.SIZE; ++j) {
       // i - строка 0..3, j - столбец 0..3
       // Для каждой клетки получаем значение
-      int value = game.getCell(i, j);
+      int value = field[i][j];
 
       // Пропускаем пустую клетку, у неё значение 0
       if(value == 0)
@@ -26,7 +31,7 @@ MainWindow::MainWindow(QWidget* parent) :
       // Создаём новую кнопку
       game.setCell(i, j,
                    new GameButton(ui->centralWidget,
-                                  i, j,
+                                  i, j, value,
                                   ui->prototypeButton,
                                   game));
     }

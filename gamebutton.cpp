@@ -22,13 +22,13 @@ void GameButton::move(int row, int col) {
 GameButton::GameButton(QWidget* parent,
                        int row,
                        int col,
+                       int value,
                        QPushButton* prototype,
                        Game& game)
   : QPushButton(parent), row(row), col(col),
-    game(game) {
+    GameCell(value), game(game) {
   // Текст для кнопки - это число взятое с поля
-  setText(QString("%1").arg(
-            game.getCell(row, col)));
+  setText(QString("%1").arg(value));
 
   // Шрифт у новой кнопки как у кнопки-прототипа
   setFont(prototype->font());

@@ -7,6 +7,12 @@ enum Direction {
 
 // Клетка в игре (абстрактный класс)
 struct GameCell {
+  // Значение клетки
+  int value;
+  // Конструктор
+  GameCell(int value) : value(value) {
+  }
+  // Абстрактный метод, который класс абстрактным
   virtual void move(int row, int col) = 0;
 };
 
@@ -18,6 +24,8 @@ class Game {
   static const int SIZE = 4;
   // Конструктор
   Game();
+  // Инициализация поля для новой игры
+  void newGame(int field[SIZE][SIZE]);
   // Получить значение в заданной
   // клетке игрового поля
   int getCell(int i, int j);
@@ -27,9 +35,7 @@ class Game {
   // Задать клетку игрового поля
   void setCell(int i, int j, GameCell* cell);
  private:
-  // Игровое поле. nullPtr - пустая клетка
-  int field[SIZE][SIZE];
-  // Клетки игрового поля
+  // Клетки игрового поля. null - пустая клетка
   GameCell* cells[SIZE][SIZE];
   // Храним позицию 0 на поле
   int zeroCol, zeroRow;
