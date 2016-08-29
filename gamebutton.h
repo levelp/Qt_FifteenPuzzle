@@ -4,7 +4,9 @@
 #include <QPushButton>
 #include "game.h"
 
-class GameButton : public QPushButton {
+// Наследуем абстрактный класс GameCell
+class GameButton : public QPushButton,
+  public GameCell {
   Q_OBJECT
 
  public:
@@ -21,6 +23,8 @@ class GameButton : public QPushButton {
   int row, col;
   // Переместить кнопку в
   // координаты row, col
+  // Перегруженный виртуальный метод
+  // GameCell
   void move(int row, int col);
 
   Game& game;

@@ -5,6 +5,11 @@ enum Direction {
   NO, UP, DOWN, LEFT, RIGHT
 };
 
+// Клетка в игре (абстрактный класс)
+struct GameCell {
+  virtual void move(int row, int col) = 0;
+};
+
 // Состояние игры
 // Состояние поля + выйгрыш/проигрыш
 class Game {
@@ -18,10 +23,16 @@ class Game {
   int getCell(int i, int j);
   // В каком направлении из координат i,j
   // можно двигаться
-  Direction move(int i, int j);
+  void move(int i, int j);
+  // Задать клетку игрового поля
+  void setCell(int i, int j, GameCell* cell);
  private:
-  // Игровое поле. 0 - пустая клетка
+  // Игровое поле. nullPtr - пустая клетка
   int field[SIZE][SIZE];
+  // Клетки игрового поля
+  GameCell* cells[SIZE][SIZE];
+  // Храним позицию 0 на поле
+  int zeroCol, zeroRow;
 };
 
 #endif // GAME_H

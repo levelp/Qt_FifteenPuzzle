@@ -1,7 +1,10 @@
 #include <vector>
 #include <cstdlib>
+#include <algorithm>
 
 #include "game.h"
+
+using namespace std;
 
 Game::Game() {
   // Инициализируем игровое поле
@@ -22,9 +25,17 @@ Game::Game() {
       // Индекс очередного числа из вектора
       int index = rand() % numbers.size();
       // Значение помещаю в клетку поля
-      field[i][j] = numbers[index];
+      int value = numbers[index];
+      field[i][j] = value;
+      // Если это 0, запоминаем его позицию
+      if(value == 0) {
+        zeroRow = i;
+        zeroCol = j;
+      }
       // Удаляю из набора использованное число
       numbers.erase(numbers.begin() + index);
+      // Обнуляем клетки поля
+      cells[i][j] = nullptr;
     }
 }
 
@@ -34,26 +45,58 @@ int Game::getCell(int i, int j) {
 }
 
 // В каком направлении можно двигаться
-Direction Game::move(int i, int j) {
-  if(i > 0 && field[i - 1][j] == 0) {
-    field[i - 1][j] = field[i][j];
-    field[i][j] = 0;
-    return UP;
+void Game::move(int i, int j) {
+  // У нас там не должно быть кнопки
+  // но на всякий случай :)
+  if(i == zeroRow && j == zeroCol)
+    return;
+  // Если строка совпадает, то будем двигаться
+  // горизонтально
+  if(i == zeroRow) {
+    if(j < zeroCol) { // Двигаем вправо
+      for(int c = zeroCol - 1; c >= j; c--) {
+        // Передвинули кнопки
+        cells[zeroRow][c]->move(zeroRow, c + 1);
+        // Меняем местами данные
+        swap(field[zeroRow][c + 1], field[zeroRow][c]);
+        swap(cells[zeroRow][c + 1], cells[zeroRow][c]);
+      }
+    } else { // Двигаем влево
+      for(int c = zeroCol + 1; c <= j; c++) {
+        // Передвинули кнопки
+        cells[zeroRow][c]->move(zeroRow, c - 1);
+        // Меняем местами данные
+        swap(field[zeroRow][c - 1], field[zeroRow][c]);
+        swap(cells[zeroRow][c - 1], cells[zeroRow][c]);
+      }
+    }
+    zeroCol = j;
+    return;
   }
-  if(i < SIZE - 1 && field[i + 1][j] == 0) {
-    field[i + 1][j] = field[i][j];
-    field[i][j] = 0;
-    return DOWN;
+  // Если столбец совпадает, то будем
+  // двигаться вертикально
+  if(j == zeroCol) {
+    if(i < zeroRow) { // Двигаем вниз
+      for(int r = zeroRow - 1; r >= i; r--) {
+        // Передвинули кнопки
+        cells[r][zeroCol]->move(r + 1, zeroCol);
+        // Меняем местами данные
+        swap(field[r + 1][zeroCol], field[r][zeroCol]);
+        swap(cells[r + 1][zeroCol], cells[r][zeroCol]);
+      }
+    } else { // Двигаем вверх
+      for(int r = zeroRow + 1; r <= i; r++) {
+        // Передвинули кнопки
+        cells[r][zeroCol]->move(r - 1, zeroCol);
+        // Меняем местами данные
+        swap(field[r - 1][zeroCol], field[r][zeroCol]);
+        swap(cells[r - 1][zeroCol], cells[r][zeroCol]);
+      }
+    }
+    zeroRow = i;
   }
-  if(j > 0 && field[i][j - 1] == 0) {
-    field[i][j - 1] = field[i][j];
-    field[i][j] = 0;
-    return LEFT;
-  }
-  if(j < SIZE - 1 && field[i][j + 1] == 0) {
-    field[i][j + 1] = field[i][j];
-    field[i][j] = 0;
-    return RIGHT;
-  }
-  return NO;
+}
+
+void Game::setCell(int i, int j, GameCell* cell) {
+  cells[i][j] = cell;
 }

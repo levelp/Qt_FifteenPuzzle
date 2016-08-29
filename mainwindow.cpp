@@ -24,10 +24,11 @@ MainWindow::MainWindow(QWidget* parent) :
         continue;
 
       // Создаём новую кнопку
-      new GameButton(ui->centralWidget,
-                     i, j,
-                     ui->prototypeButton,
-                     game);
+      game.setCell(i, j,
+                   new GameButton(ui->centralWidget,
+                                  i, j,
+                                  ui->prototypeButton,
+                                  game));
     }
 }
 

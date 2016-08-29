@@ -2,6 +2,10 @@
 #include "gamebutton.h"
 
 void GameButton::move(int row, int col) {
+  // Запоминаем новые координаты кнопки
+  this->row = row;
+  this->col = col;
+
   QRect rect = geometry();
   // высота, ширина, координаты
   // высоту и ширину не трогаем
@@ -45,19 +49,5 @@ GameButton::GameButton(QWidget* parent,
 void GameButton::tryMove() {
   qDebug() << row << col;
 
-  switch(game.move(row, col)) {
-    case UP:
-      row--;
-      break;
-    case DOWN:
-      row++;
-      break;
-    case LEFT:
-      col--;
-      break;
-    case RIGHT:
-      col++;
-      break;
-  }
-  move(row, col);
+  game.move(row, col);
 }
