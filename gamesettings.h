@@ -23,7 +23,9 @@ class GameSettings : public QDialog {
 
   void on_chooseColorButton_clicked();
 
- private:
+  void on_GameSettings_accepted();
+
+private:
   Ui::GameSettings* ui;
 };
 

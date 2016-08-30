@@ -19,6 +19,36 @@ void GameButton::move(int row, int col) {
   setGeometry(rect);
 }
 
+void GameButton::setFonts(QFont s_font)
+{
+   setFont(s_font);
+}
+
+// Копируем размеры и координаты с прототипа
+void GameButton::setGeom(QRect s_geom, int row, int col)
+{
+ setGeometry(s_geom);
+ move(row,col);
+}
+
+void GameButton::setColr(QPalette palette)
+{
+    setFlat(true);
+    setAutoFillBackground(true);
+    setPalette(palette);
+}
+
+void GameButton::setValue(int s_val)
+{
+    value = s_val;
+}
+
+void GameButton::initBtn(){
+    hide();
+    delete this;
+}
+
+
 GameButton::GameButton(QWidget* parent,
                        int row,
                        int col,
@@ -36,18 +66,22 @@ GameButton::GameButton(QWidget* parent,
   // Копируем размеры и координаты с прототипа
   setGeometry(prototype->geometry());
 
-  // Перемещение кнопки в заданную строку и столбец
-  move(row, col);
+  // Устанавливаем цвет прототипа
+  setColr(prototype->palette());
 
   // Подключаем обработчик событий к кнопке
   connect(this, // Источник сигнала
           SIGNAL(clicked()), // Какой сигнал
           this, // Объект-обработчик
           SLOT(tryMove())); // Слот (метод) обработчик
+
+  // Перемещение кнопки в заданную строку и столбец
+  move(row, col);
+  setHidden(false);
 }
 
 void GameButton::tryMove() {
-  qDebug() << row << col;
+//  qDebug() << row << col;
 
   game.move(row, col);
 }

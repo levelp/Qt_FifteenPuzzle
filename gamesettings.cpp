@@ -2,10 +2,12 @@
 #include "ui_gamesettings.h"
 #include <QColorDialog>
 
+
 GameSettings::GameSettings(QWidget* parent) :
   QDialog(parent),
   ui(new Ui::GameSettings) {
   ui->setupUi(this);
+  ui->sampleButton->setText("18");
 }
 
 GameSettings::~GameSettings() {
@@ -34,17 +36,19 @@ void GameSettings::on_fontComboBox_currentFontChanged(const QFont& f) {
 }
 
 void GameSettings::saveTo(QPushButton& button) {
+
   QFont font = ui->sampleButton->font();
   font.setPointSize(
     ui->sampleButton->font().pointSize());
   button.setFont(font);
 
-  int size = ui->sampleButton->minimumWidth();
-  button.setMaximumHeight(size);
-  button.setMinimumHeight(size);
-  button.setMaximumWidth(size);
-  button.setMinimumWidth(size);
-  // TODO: Сохранять цвет кнопки
+  QRect rect = ui->sampleButton->geometry();
+  button.setGeometry(rect);
+
+  button.setFlat(true);
+  button.setAutoFillBackground(true);
+  button.setPalette(ui->sampleButton->palette());
+  button.update();
 }
 
 void GameSettings::on_chooseColorButton_clicked() {
@@ -65,4 +69,10 @@ void GameSettings::on_chooseColorButton_clicked() {
   b->update();
 
   //  ui->sampleButton->setStyleSheet("background-color:" + color.name() +  ";");
+}
+
+
+
+void GameSettings::on_GameSettings_accepted()
+{
 }

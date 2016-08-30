@@ -19,7 +19,13 @@ class MainWindow : public QMainWindow {
  private slots:
   void on_gameSettingsAction_triggered();
 
- private:
+  void on_exitAction_triggered();
+
+  void on_loadGameAction_triggered();
+
+  void on_saveGameAction_triggered();
+
+private:
   Ui::MainWindow* ui;
 
   // Состояние игры (игрового поля,

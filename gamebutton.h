@@ -26,6 +26,11 @@ class GameButton : public QPushButton,
   // Перегруженный виртуальный метод
   // GameCell
   void move(int row, int col);
+  void setFonts(QFont s_font);
+  void setGeom(QRect s_geom, int row, int col);
+  void setColr(QPalette palette);
+  void setValue(int s_val);
+  void initBtn();
 
   Game& game;
 };

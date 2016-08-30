@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
+#include <QDebug>
 
 #include "game.h"
 
@@ -10,7 +11,7 @@ Game::Game() {
 }
 
 // Инициализация новой игры
-void Game::newGame(int field[SIZE][SIZE]) {
+void Game::newGame(int field[SIZE][SIZE]) { //
   // Инициализируем игровое поле
   // Расставляем случайным
   // образом числа от 0 до 15
@@ -33,8 +34,7 @@ void Game::newGame(int field[SIZE][SIZE]) {
       field[i][j] = value;
       // Если это 0, запоминаем его позицию
       if(value == 0) {
-        zeroRow = i;
-        zeroCol = j;
+       setZeroCoordinates(i,j);
       }
       // Удаляю из набора использованное число
       numbers.erase(numbers.begin() + index);
@@ -101,4 +101,60 @@ void Game::move(int i, int j) {
 
 void Game::setCell(int i, int j, GameCell* cell) {
   cells[i][j] = cell;
+}
+
+void Game::setCellProperty(QPushButton& prototype)
+{
+    for (int i=0; i<SIZE; i++)
+        for (int j=0; j<SIZE; j++)
+        {
+            if(cells[i][j] != nullptr)
+            {
+                // Шрифт у новой кнопки как у кнопки-прототипа
+                cells[i][j]->setFonts(prototype.font());
+                // Копируем размеры и координаты с прототипа
+                cells[i][j]->setGeom(prototype.geometry(),i,j);
+                // Применяем цвет прототипа к кнопкам игрового поля
+                cells[i][j]->setColr(prototype.palette());
+            }
+        }
+}
+
+void Game::setCellValue(int i, int j, int value)
+{
+    cells[i][j]->setValue(value);
+}
+
+void Game::setZeroCoordinates(int i, int j)
+{
+    zeroRow = i;
+    zeroCol = j;
+    qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
+}
+
+void Game::intGame()
+{
+    for (int i=0; i<SIZE; i++)
+        for (int j=0; j<SIZE; j++)
+            if (cells[i][j]!=nullptr)
+                cells[i][j]->initBtn();
+}
+
+void Game::reLoadGame(int field[SIZE][SIZE])
+{
+    for (int i=0; i<SIZE; i++)
+        for (int j=0; j<SIZE; j++)
+        {
+          if (cells[i][j]!=nullptr){
+              //cells[i][j]->setValue(field[i][j]);
+              cells[i][j]->value = field[i][j];
+              cells[i][j]->move(i,j);
+          }
+        }
+
+}
+
+void GameCell::setValue(int s_val)
+{
+    value = s_val;
 }
