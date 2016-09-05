@@ -20,6 +20,8 @@ class MainWindow : public QMainWindow {
 
   void saveSettings(QPushButton& button);
 
+  void newGame();
+
  private slots:
   void on_gameSettingsAction_triggered();
 
@@ -32,6 +34,8 @@ class MainWindow : public QMainWindow {
   void on_aboutAction_triggered();
 
   void checkGameOver();
+
+  void on_newGameAction_triggered();
 
  private:
   Ui::MainWindow* ui;

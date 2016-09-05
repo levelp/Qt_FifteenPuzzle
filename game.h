@@ -48,7 +48,7 @@ class Game {
   // Получение координат нуля
   void setZeroCoordinates(int i, int j);
   // Инициализация самой игры
-  void intGame();
+  void initGame();
   //Перезагрузка игры
   void reLoadGame(int field[SIZE][SIZE]);
   // Головоломка завершена?

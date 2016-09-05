@@ -65,6 +65,7 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="newGameAction"/>
     <addaction name="saveGameAction"/>
     <addaction name="loadGameAction"/>
     <addaction name="separator"/>
@@ -114,6 +115,11 @@
   <action name="aboutAction">
    <property name="text">
     <string>О программе</string>
+   </property>
+  </action>
+  <action name="newGameAction">
+   <property name="text">
+    <string>Новая игра</string>
    </property>
   </action>
  </widget>

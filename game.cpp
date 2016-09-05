@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 #include <QDebug>
 #include "game.h"
 
@@ -21,6 +22,9 @@ void Game::newGame(int field[SIZE][SIZE]) { //
   std::vector<int> numbers;
   for(int n = 0; n <= SIZE * SIZE - 1; ++n)
     numbers.push_back(n);
+
+  // Инициализируем генератор случайных чисел
+  srand (time(NULL));
 
   // Расставляем их случайным образом на поле
   for(int i = 0; i < SIZE; ++i)
@@ -125,7 +129,7 @@ void Game::setZeroCoordinates(int i, int j) {
   //   qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
 }
 
-void Game::intGame() {
+void Game::initGame() {
   for (int i = 0; i < SIZE; i++)
     for (int j = 0; j < SIZE; j++)
       if (cells[i][j] != nullptr)

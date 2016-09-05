@@ -15,17 +15,7 @@
 // Вывод диалоговых окон
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget* parent) :
-  QMainWindow(parent),
-  ui(new Ui::MainWindow) {
-  ui->setupUi(this);
-
-  // Скрываем кнопку-прототип
-  ui->prototypeButton->setVisible(false);
-
-  // Считываем настройки оформления игры из файла
-  loadSettings(*(ui->prototypeButton));
-
+void MainWindow::newGame() {
   // Поле для игры
   int field[game.SIZE][game.SIZE];
   // Заполняем поле для игры
@@ -57,6 +47,21 @@ MainWindow::MainWindow(QWidget* parent) :
     }
 }
 
+MainWindow::MainWindow(QWidget* parent) :
+  QMainWindow(parent),
+  ui(new Ui::MainWindow) {
+  ui->setupUi(this);
+
+  // Скрываем кнопку-прототип
+  ui->prototypeButton->setVisible(false);
+
+  // Считываем настройки оформления игры из файла
+  loadSettings(*(ui->prototypeButton));
+
+  // Сгенерировать новое поле и начать новую игру
+  newGame();
+}
+
 MainWindow::~MainWindow() {
   delete ui;
 }
@@ -84,7 +89,7 @@ void MainWindow::on_loadGameAction_triggered() {
     str = inFile.readLine(); // Читаем первую строчку
     str = inFile.readLine(); // Размер поля
     // Инициализируем игру
-    game.intGame(); // Удаляем кнопки
+    game.initGame(); // Удаляем кнопки
     int field[game.SIZE][game.SIZE];
     game.newGame(field);
     for (int i = 0; i < game.SIZE; i++) {
@@ -175,4 +180,9 @@ void MainWindow::checkGameOver() {
                              "Победа!",
                              "Вы решили головоломку");
   }
+}
+
+void MainWindow::on_newGameAction_triggered() {
+  game.initGame();
+  newGame();
 }
