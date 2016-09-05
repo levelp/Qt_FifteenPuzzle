@@ -25,6 +25,8 @@ class GameSettings : public QDialog {
 
   void on_GameSettings_accepted();
 
+  void on_buttonBox_rejected();
+
 private:
   Ui::GameSettings* ui;
 };

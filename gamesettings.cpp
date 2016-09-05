@@ -1,13 +1,39 @@
 #include "gamesettings.h"
 #include "ui_gamesettings.h"
 #include <QColorDialog>
+#include <QSettings>
+#include <QDir>
+#include "game.h"
+#include <QDebug>
 
+bool saveParam = false; //Сохранять изменения или нет
 
 GameSettings::GameSettings(QWidget* parent) :
   QDialog(parent),
   ui(new Ui::GameSettings) {
   ui->setupUi(this);
-  ui->sampleButton->setText("18");
+
+  QPushButton *b = ui->sampleButton;
+  b->setText("15");
+
+  //примeнение параметров из файла
+  QSettings confSet(QCoreApplication::applicationDirPath() + QDir::separator() + "setting.ini", QSettings::IniFormat); //+ QDir::separator()
+
+  QRect tmpRect = confSet.value("Geom",tmpRect).toRect();
+  QFont tmpFont;
+          tmpFont = qvariant_cast<QFont>(confSet.value( "Font", tmpFont));
+  QPalette tmpPal;
+          tmpPal = qvariant_cast<QPalette>(confSet.value("Color",tmpPal));
+
+  b->setGeometry(tmpRect);
+  b->setFont(tmpFont);
+  b->setFlat(true);
+  b->setAutoFillBackground(true);
+  b->setPalette(tmpPal);
+  b->update();
+
+  ui->buttonSizeEdit->setValue(tmpRect.height());
+  ui->fontComboBox->setCurrentFont(tmpFont);
 }
 
 GameSettings::~GameSettings() {
@@ -36,19 +62,20 @@ void GameSettings::on_fontComboBox_currentFontChanged(const QFont& f) {
 }
 
 void GameSettings::saveTo(QPushButton& button) {
+    if (saveParam){
+        QFont font = ui->sampleButton->font();
+        font.setPointSize(
+                    ui->sampleButton->font().pointSize());
+        button.setFont(font);
 
-  QFont font = ui->sampleButton->font();
-  font.setPointSize(
-    ui->sampleButton->font().pointSize());
-  button.setFont(font);
+        QRect rect = ui->sampleButton->geometry();
+        button.setGeometry(rect);
 
-  QRect rect = ui->sampleButton->geometry();
-  button.setGeometry(rect);
-
-  button.setFlat(true);
-  button.setAutoFillBackground(true);
-  button.setPalette(ui->sampleButton->palette());
-  button.update();
+        button.setFlat(true);
+        button.setAutoFillBackground(true);
+        button.setPalette(ui->sampleButton->palette());
+        button.update();
+    }
 }
 
 void GameSettings::on_chooseColorButton_clicked() {
@@ -67,12 +94,18 @@ void GameSettings::on_chooseColorButton_clicked() {
   // Заменяем палитру
   b->setPalette(palette);
   b->update();
-
-  //  ui->sampleButton->setStyleSheet("background-color:" + color.name() +  ";");
 }
 
 
 
 void GameSettings::on_GameSettings_accepted()
 {
+    qDebug() << "Ok pressed";
+    saveParam = true;
+}
+
+void GameSettings::on_buttonBox_rejected()
+{
+    qDebug() << "Cancel pressed";
+    saveParam = false;
 }

@@ -3,20 +3,24 @@
 // Подключаем 2-ую форму с настройками игры
 #include "gamesettings.h"
 #include "gamebutton.h"
+#include "game.h"
 #include <QFileDialog>
 #include <QDebug>
 #include <QTextCodec>
 #include <QTextStream>
 #include <string>
-
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    // Скрываем кнопку прототип
+    // Скрываем кнопку-прототип
     ui->prototypeButton->setVisible(false);
+
+    // Считываем настройки оформления игры из файла
+   loadSettings(*(ui->prototypeButton));
 
     // Поле для игры
     int field[game.SIZE][game.SIZE];
@@ -52,6 +56,9 @@ void MainWindow::on_gameSettingsAction_triggered() {
     form.exec();
     form.saveTo(*(ui->prototypeButton));
     game.setCellProperty(*(ui->prototypeButton));
+
+   // Сохраняем настройки оформления игры в файл
+    saveSettings(*(ui->prototypeButton));
 }
 
 void MainWindow::on_exitAction_triggered()
@@ -114,4 +121,32 @@ void MainWindow::on_saveGameAction_triggered()
         }
         savefile.close();
     }
+}
+
+void MainWindow::loadSettings(QPushButton& button){
+    QString settPath= QCoreApplication::applicationDirPath() + QDir::separator() + "setting.ini";
+    QFile f(settPath);
+    if (f.open(QIODevice::ReadOnly))
+    {
+        f.close();
+        QSettings conf(settPath, QSettings::IniFormat);
+
+        QRect tmpRect = conf.value("Geom",tmpRect).toRect();
+        QFont tmpFont;
+        tmpFont = qvariant_cast<QFont>( conf.value( "Font", tmpFont) );
+        QPalette tmpPal;
+        tmpPal = qvariant_cast<QPalette>(conf.value("Color",tmpPal));
+
+        button.setFont(tmpFont);
+        button.setGeometry(tmpRect);
+        button.setPalette(tmpPal);
+    }
+}
+
+void MainWindow::saveSettings(QPushButton& button){
+    QSettings configS(QCoreApplication::applicationDirPath() + QDir::separator() + "setting.ini", QSettings::IniFormat);
+
+    configS.setValue("Font", button.font());
+    configS.setValue("Geom", button.geometry());
+    configS.setValue("Color", button.palette());
 }

@@ -16,6 +16,10 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(QWidget* parent = 0);
   ~MainWindow();
 
+    void loadSettings(QPushButton &button);
+
+    void saveSettings(QPushButton &button);
+
  private slots:
   void on_gameSettingsAction_triggered();
 

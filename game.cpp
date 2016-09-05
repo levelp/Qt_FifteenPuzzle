@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <algorithm>
 #include <QDebug>
-
 #include "game.h"
 
 using namespace std;
@@ -129,7 +128,7 @@ void Game::setZeroCoordinates(int i, int j)
 {
     zeroRow = i;
     zeroCol = j;
-    qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
+ //   qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
 }
 
 void Game::intGame()

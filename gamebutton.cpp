@@ -81,7 +81,5 @@ GameButton::GameButton(QWidget* parent,
 }
 
 void GameButton::tryMove() {
-//  qDebug() << row << col;
-
   game.move(row, col);
 }
