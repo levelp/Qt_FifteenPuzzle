@@ -10,12 +10,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     gamesettings.cpp \
     game.cpp \
-    gamebutton.cpp
+    gamebutton.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     gamesettings.h \
     game.h \
-    gamebutton.h
+    gamebutton.h \
+    about.h
 
 FORMS    += mainwindow.ui \
-    gamesettings.ui
+    gamesettings.ui \
+    about.ui

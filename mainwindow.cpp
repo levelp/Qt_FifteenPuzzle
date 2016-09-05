@@ -10,6 +10,8 @@
 #include <QTextStream>
 #include <string>
 #include <QSettings>
+// Окно "О программе"
+#include "about.h"
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -149,4 +151,9 @@ void MainWindow::saveSettings(QPushButton& button){
     configS.setValue("Font", button.font());
     configS.setValue("Geom", button.geometry());
     configS.setValue("Color", button.palette());
+}
+
+void MainWindow::on_aboutAction_triggered() {
+  About form(this);
+  form.exec();
 }

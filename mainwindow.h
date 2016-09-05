@@ -29,7 +29,9 @@ class MainWindow : public QMainWindow {
 
   void on_saveGameAction_triggered();
 
-private:
+  void on_aboutAction_triggered();
+
+ private:
   Ui::MainWindow* ui;
 
   // Состояние игры (игрового поля,
