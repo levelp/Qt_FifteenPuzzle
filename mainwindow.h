@@ -16,9 +16,9 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(QWidget* parent = 0);
   ~MainWindow();
 
-    void loadSettings(QPushButton &button);
+  void loadSettings(QPushButton& button);
 
-    void saveSettings(QPushButton &button);
+  void saveSettings(QPushButton& button);
 
  private slots:
   void on_gameSettingsAction_triggered();
@@ -30,6 +30,8 @@ class MainWindow : public QMainWindow {
   void on_saveGameAction_triggered();
 
   void on_aboutAction_triggered();
+
+  void checkGameOver();
 
  private:
   Ui::MainWindow* ui;

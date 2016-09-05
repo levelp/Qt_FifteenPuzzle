@@ -19,33 +19,29 @@ void GameButton::move(int row, int col) {
   setGeometry(rect);
 }
 
-void GameButton::setFonts(QFont s_font)
-{
-   setFont(s_font);
+void GameButton::setFonts(QFont s_font) {
+  setFont(s_font);
 }
 
 // Копируем размеры и координаты с прототипа
-void GameButton::setGeom(QRect s_geom, int row, int col)
-{
- setGeometry(s_geom);
- move(row,col);
+void GameButton::setGeom(QRect s_geom, int row, int col) {
+  setGeometry(s_geom);
+  move(row, col);
 }
 
-void GameButton::setColr(QPalette palette)
-{
-    setFlat(true);
-    setAutoFillBackground(true);
-    setPalette(palette);
+void GameButton::setColr(QPalette palette) {
+  setFlat(true);
+  setAutoFillBackground(true);
+  setPalette(palette);
 }
 
-void GameButton::setValue(int s_val)
-{
-    value = s_val;
+void GameButton::setValue(int s_val) {
+  value = s_val;
 }
 
-void GameButton::initBtn(){
-    hide();
-    delete this;
+void GameButton::initBtn() {
+  hide();
+  delete this;
 }
 
 

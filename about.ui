@@ -23,7 +23,7 @@
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Игра &amp;quot;Пятнашки&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Совместный проект группы C++ Junior Developer 25.07.2016 - 05.09.2016&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Игра &amp;quot;Пятнашки&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Совместный проект группы &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;C++ Junior Developer &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;25.07.2016 - 05.09.2016&lt;/p&gt;&lt;p&gt;Команда разработчиков: ....&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

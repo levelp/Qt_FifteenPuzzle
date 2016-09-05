@@ -46,12 +46,13 @@ class Game {
   void setCellProperty(QPushButton& prototype);
   void setCellValue(int i, int j, int value);
   // Получение координат нуля
-  void setZeroCoordinates(int i,int j);
+  void setZeroCoordinates(int i, int j);
   // Инициализация самой игры
   void intGame();
   //Перезагрузка игры
   void reLoadGame(int field[SIZE][SIZE]);
-
+  // Головоломка завершена?
+  bool isSolved();
  private:
   // Клетки игрового поля. null - пустая клетка
   GameCell* cells[SIZE][SIZE];

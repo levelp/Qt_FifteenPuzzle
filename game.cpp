@@ -32,9 +32,8 @@ void Game::newGame(int field[SIZE][SIZE]) { //
       int value = numbers[index];
       field[i][j] = value;
       // Если это 0, запоминаем его позицию
-      if(value == 0) {
-       setZeroCoordinates(i,j);
-      }
+      if(value == 0)
+        setZeroCoordinates(i, j);
       // Удаляю из набора использованное число
       numbers.erase(numbers.begin() + index);
       // Обнуляем клетки поля
@@ -102,58 +101,75 @@ void Game::setCell(int i, int j, GameCell* cell) {
   cells[i][j] = cell;
 }
 
-void Game::setCellProperty(QPushButton& prototype)
-{
-    for (int i=0; i<SIZE; i++)
-        for (int j=0; j<SIZE; j++)
-        {
-            if(cells[i][j] != nullptr)
-            {
-                // Шрифт у новой кнопки как у кнопки-прототипа
-                cells[i][j]->setFonts(prototype.font());
-                // Копируем размеры и координаты с прототипа
-                cells[i][j]->setGeom(prototype.geometry(),i,j);
-                // Применяем цвет прототипа к кнопкам игрового поля
-                cells[i][j]->setColr(prototype.palette());
-            }
-        }
+void Game::setCellProperty(QPushButton& prototype) {
+  for (int i = 0; i < SIZE; i++)
+    for (int j = 0; j < SIZE; j++) {
+      if(cells[i][j] != nullptr) {
+        // Шрифт у новой кнопки как у кнопки-прототипа
+        cells[i][j]->setFonts(prototype.font());
+        // Копируем размеры и координаты с прототипа
+        cells[i][j]->setGeom(prototype.geometry(), i, j);
+        // Применяем цвет прототипа к кнопкам игрового поля
+        cells[i][j]->setColr(prototype.palette());
+      }
+    }
 }
 
-void Game::setCellValue(int i, int j, int value)
-{
-    cells[i][j]->setValue(value);
+void Game::setCellValue(int i, int j, int value) {
+  cells[i][j]->setValue(value);
 }
 
-void Game::setZeroCoordinates(int i, int j)
-{
-    zeroRow = i;
-    zeroCol = j;
- //   qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
+void Game::setZeroCoordinates(int i, int j) {
+  zeroRow = i;
+  zeroCol = j;
+  //   qDebug() << "Zero: " << zeroRow << "  " <<zeroCol << endl;
 }
 
-void Game::intGame()
-{
-    for (int i=0; i<SIZE; i++)
-        for (int j=0; j<SIZE; j++)
-            if (cells[i][j]!=nullptr)
-                cells[i][j]->initBtn();
+void Game::intGame() {
+  for (int i = 0; i < SIZE; i++)
+    for (int j = 0; j < SIZE; j++)
+      if (cells[i][j] != nullptr)
+        cells[i][j]->initBtn();
 }
 
-void Game::reLoadGame(int field[SIZE][SIZE])
-{
-    for (int i=0; i<SIZE; i++)
-        for (int j=0; j<SIZE; j++)
-        {
-          if (cells[i][j]!=nullptr){
-              //cells[i][j]->setValue(field[i][j]);
-              cells[i][j]->value = field[i][j];
-              cells[i][j]->move(i,j);
-          }
-        }
+void Game::reLoadGame(int field[SIZE][SIZE]) {
+  for (int i = 0; i < SIZE; i++)
+    for (int j = 0; j < SIZE; j++) {
+      if (cells[i][j] != nullptr) {
+        //cells[i][j]->setValue(field[i][j]);
+        cells[i][j]->value = field[i][j];
+        cells[i][j]->move(i, j);
+      }
+    }
 
 }
 
-void GameCell::setValue(int s_val)
-{
-    value = s_val;
+void GameCell::setValue(int s_val) {
+  value = s_val;
+}
+
+// Решена ли головоломка?
+//  1  2  3  4
+//  5  6  7  8
+//  9 10 11 12
+// 13 14 15  0
+bool Game::isSolved() {
+  for(int i = 0; i < SIZE; i++)
+    for(int j = 0; j < SIZE; j++) {
+      // Какое число ожидается
+      int expected = i * SIZE + j + 1;
+      if(i == SIZE - 1 && j == SIZE - 1)
+        expected = 0;
+      // Какое число в ячейке?
+      int actual = getCell(i, j);
+      if(expected != actual) {
+        qDebug() << "Not solved: " << i << j <<
+                 " expected " << expected <<
+                 " found " << actual;
+        return false;
+      }
+    }
+  // Головоломка решена
+  qDebug() << "Puzzle solved!";
+  return true;
 }

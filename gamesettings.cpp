@@ -13,17 +13,17 @@ GameSettings::GameSettings(QWidget* parent) :
   ui(new Ui::GameSettings) {
   ui->setupUi(this);
 
-  QPushButton *b = ui->sampleButton;
+  QPushButton* b = ui->sampleButton;
   b->setText("15");
 
   //примeнение параметров из файла
   QSettings confSet(QCoreApplication::applicationDirPath() + QDir::separator() + "setting.ini", QSettings::IniFormat); //+ QDir::separator()
 
-  QRect tmpRect = confSet.value("Geom",tmpRect).toRect();
+  QRect tmpRect = confSet.value("Geom", tmpRect).toRect();
   QFont tmpFont;
-          tmpFont = qvariant_cast<QFont>(confSet.value( "Font", tmpFont));
+  tmpFont = qvariant_cast<QFont>(confSet.value( "Font", tmpFont));
   QPalette tmpPal;
-          tmpPal = qvariant_cast<QPalette>(confSet.value("Color",tmpPal));
+  tmpPal = qvariant_cast<QPalette>(confSet.value("Color", tmpPal));
 
   b->setGeometry(tmpRect);
   b->setFont(tmpFont);
@@ -62,20 +62,20 @@ void GameSettings::on_fontComboBox_currentFontChanged(const QFont& f) {
 }
 
 void GameSettings::saveTo(QPushButton& button) {
-    if (saveParam){
-        QFont font = ui->sampleButton->font();
-        font.setPointSize(
-                    ui->sampleButton->font().pointSize());
-        button.setFont(font);
+  if (saveParam) {
+    QFont font = ui->sampleButton->font();
+    font.setPointSize(
+      ui->sampleButton->font().pointSize());
+    button.setFont(font);
 
-        QRect rect = ui->sampleButton->geometry();
-        button.setGeometry(rect);
+    QRect rect = ui->sampleButton->geometry();
+    button.setGeometry(rect);
 
-        button.setFlat(true);
-        button.setAutoFillBackground(true);
-        button.setPalette(ui->sampleButton->palette());
-        button.update();
-    }
+    button.setFlat(true);
+    button.setAutoFillBackground(true);
+    button.setPalette(ui->sampleButton->palette());
+    button.update();
+  }
 }
 
 void GameSettings::on_chooseColorButton_clicked() {
@@ -98,14 +98,12 @@ void GameSettings::on_chooseColorButton_clicked() {
 
 
 
-void GameSettings::on_GameSettings_accepted()
-{
-    qDebug() << "Ok pressed";
-    saveParam = true;
+void GameSettings::on_GameSettings_accepted() {
+  qDebug() << "Ok pressed";
+  saveParam = true;
 }
 
-void GameSettings::on_buttonBox_rejected()
-{
-    qDebug() << "Cancel pressed";
-    saveParam = false;
+void GameSettings::on_buttonBox_rejected() {
+  qDebug() << "Cancel pressed";
+  saveParam = false;
 }
